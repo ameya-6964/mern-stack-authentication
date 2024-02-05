@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import FormContainer from "../components/FormContainer";
+import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../slices/authSlice";
 import { useLoginMutation } from "../slices/userApiSlice";
@@ -9,6 +10,7 @@ import { useLoginMutation } from "../slices/userApiSlice";
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [disable, setDisabled] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -24,6 +26,18 @@ const LoginScreen = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    if (!email || !password) {
+      return toast.error("Email Or Password Is Not Entered");
+    }
+
+    try {
+      const res = await login({ email, password }).unwrap();
+      dispatch(setCredentials({ ...res }));
+      navigate("/");
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
+    }
+
     setEmail("");
     setPassword("");
   };
