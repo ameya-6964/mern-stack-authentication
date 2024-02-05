@@ -10,6 +10,11 @@ connectDB();
 
 const app = express();
 
+app.use(express.json());
+
+//For Form Data
+app.use(express.urlencoded({ extended: true }));
+
 app.use("/api/users", userRoutes);
 
 app.get("/", (req, res) => {
