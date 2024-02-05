@@ -10,7 +10,7 @@ import { useLoginMutation } from "../slices/userApiSlice";
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [disable, setDisabled] = useState(true);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
