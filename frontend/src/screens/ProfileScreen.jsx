@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import FormContainer from "../components/FormContainer";
+import { useNavigate } from "react-router-dom";
+
 import { toast } from "react-toastify";
 import Loader from "../components/Loader";
 import { useUpdateUserMutation } from "../slices/userApiSlice";
@@ -13,7 +15,7 @@ const ProfileScreen = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { userInfo } = useSelector((state) => state.auth);
@@ -40,6 +42,7 @@ const ProfileScreen = () => {
         console.log(res);
         dispatch(setCredentials(res));
         toast.success("Profile updated successfully");
+        navigate("/");
       } catch (err) {
         toast.error(err?.data?.message || err.error);
       }
