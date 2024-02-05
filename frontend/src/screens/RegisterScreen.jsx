@@ -12,6 +12,10 @@ const RegisterScreen = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     console.log("submit");
+    setName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
   };
 
   return (

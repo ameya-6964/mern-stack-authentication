@@ -9,7 +9,8 @@ const LoginScreen = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log("submit");
+    setEmail("");
+    setPassword("");
   };
 
   return (
